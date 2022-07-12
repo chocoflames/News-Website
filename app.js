@@ -20,7 +20,9 @@ const ENTERTAINMENT_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&cat
 const TECHNOLOGY_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=technology&apiKey=";
 const SEARCH_NEWS = " https://newsapi.org/v2/everything?q+"
 
-    window.o
+    window.onclose(function () => {
+        fetchHeadlines();
+    })
 
 generalBtn.addEventListener("click",function () {
     fetchGeneralNews()
