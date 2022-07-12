@@ -1,12 +1,14 @@
 const generalBtn = document.getElementById("general")
 const businessBtn = document.getElementById("business")
 const sportBtn = document.getElementById("sport")
+const scienceBtn = document.getElementById("science")
+const healthBtn = document.getElementById("health")
 const entertainmentBtn = document.getElementById("entertainment")
 const technologyBtn = document.getElementById("technology")
 const searchBtn = document.getElementById("searchBtn")
 
 const newsQuery = document.getElementById("newsQuery")
-const newstype = document.getElementById("newstype")
+const newsType = document.getElementById("newstype")
 const newsdetails = document.getElementById("newsdetails")
 
 var newsDataArr = []
@@ -16,37 +18,64 @@ const HEADLINES_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&apiKey=
 const GENERAL_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=general&apiKey=";
 const BUSINESS_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=business&apiKey=";
 const SPORTS_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=sport&apiKey=";
+const SCIENCE_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=science&apiKey=";
+const HEALTH_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=health&apiKey=";
 const ENTERTAINMENT_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=entertainment&apiKey=";
 const TECHNOLOGY_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=technology&apiKey=";
 const SEARCH_NEWS = " https://newsapi.org/v2/everything?q+"
 
-    window.onclose(function () => {
+    window.onload = function() {
+        newsType.innerHTML = "<h4>Headlines</h4>";
         fetchHeadlines();
-    })
+    };
 
 generalBtn.addEventListener("click",function () {
+    newsType.innerHTML = "<h4>General news</h4>";
     fetchGeneralNews()
 })
 
 businessBtn.addEventListener("click",function () {
+    newsType.innerHTML = "<h4>Business</h4>";
     fetchBusinessNews()
 })
 
 sportBtn.addEventListener("click",function () {
+    newsType.innerHTML = "<h4>Sports</h4>";
     fetchSportNews()
 })
 
+scienceBtn.addEventListener("click",function () {
+    newsType.innerHTML = "<h4>Science</h4>";
+    fetchScienceNews()
+})
+
 entertainmentBtn.addEventListener("click",function () {
+    newsType.innerHTML = "<h4>Entertainment</h4>";
     fetchEntertainmentNews()
 })
 
 technologyBtn.addEventListener("click",function () {
+    newsType.innerHTML = "<h4>Technology</h4>";
     fetchTechnologyNews()
 })
 
 searchBtn.addEventListener("click",function () {
+    newsType.innerHTML = "<h4>Search : "+newsQuery.value+"</h4>";
     fetchQueryNews()
 })
+
+const fetchHeadlines = async () => {
+    const response = await fetch(HEADLINES_NEWS+API_KEY)
+    newsDataArr = [];
+    if (response.status >= 200 && response.status < 300) {
+        const myJson = await response.json();
+        newsDataArr = myJson.articles;
+    }else{
+        // errors
+        console.log(response.status, response.statusText);
+    }
+    displayNews();
+}
 
 const fetchGeneralNews = async () => {
     const response = await fetch(GENERAL_NEWS+API_KEY)
@@ -76,6 +105,19 @@ const fetchBusinessNews = async () => {
 
 const fetchSportNews = async () => {
     const response = await fetch(SPORTS_NEWS+API_KEY)
+    newsDataArr = [];
+    if (response.status >= 200 && response.status < 300) {
+        const myJson = await response.json();
+        newsDataArr = myJson.articles;
+    }else{
+        // errors
+        console.log(response.status, response.statusText);
+    }
+    displayNews();
+}
+
+const fetchScienceNews = async () => {
+    const response = await fetch(SCIENCE_NEWS+API_KEY)
     newsDataArr = [];
     if (response.status >= 200 && response.status < 300) {
         const myJson = await response.json();
