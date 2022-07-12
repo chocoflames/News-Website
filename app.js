@@ -49,6 +49,11 @@ scienceBtn.addEventListener("click",function () {
     fetchScienceNews()
 })
 
+healthBtn.addEventListener("click",function () {
+    newsType.innerHTML = "<h4>Health</h4>";
+    fetchHeathNews()
+})
+
 entertainmentBtn.addEventListener("click",function () {
     newsType.innerHTML = "<h4>Entertainment</h4>";
     fetchEntertainmentNews()
@@ -118,6 +123,19 @@ const fetchSportNews = async () => {
 
 const fetchScienceNews = async () => {
     const response = await fetch(SCIENCE_NEWS+API_KEY)
+    newsDataArr = [];
+    if (response.status >= 200 && response.status < 300) {
+        const myJson = await response.json();
+        newsDataArr = myJson.articles;
+    }else{
+        // errors
+        console.log(response.status, response.statusText);
+    }
+    displayNews();
+}
+
+const fetchHeathNews = async () => {
+    const response = await fetch(HEALTH_NEWS+API_KEY)
     newsDataArr = [];
     if (response.status >= 200 && response.status < 300) {
         const myJson = await response.json();
