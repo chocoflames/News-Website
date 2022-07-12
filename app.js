@@ -20,7 +20,7 @@ const ENTERTAINMENT_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&cat
 const TECHNOLOGY_NEWS = " https://newsapi.org/v2/top-headlines?country=ng&category=technology&apiKey=";
 const SEARCH_NEWS = " https://newsapi.org/v2/everything?q+"
 
-
+    window.o
 
 generalBtn.addEventListener("click",function () {
     fetchGeneralNews()
@@ -163,6 +163,26 @@ function displayNews() {
         dateHeading.className = "text-primary";
         dateHeading.innerHTML = date[0];
 
-        var description
+        var description = document.createElement(`p`);
+        description.className = "text-muted";
+        description.innerHTML = news.description
+
+        var link = document.createElement(`a`);
+        link.className= "btn btn-dark";
+        link.setAttribute("target", "_blank");
+        link.href = news.url;
+        link.innerHTML= "Read more"
+
+        cardBody.appendChild(newsHeading);
+        cardBody.appendChild(dateHeading);
+        cardBody.appendChild(description);
+        cardBody.appendChild(link);
+
+        card.appendChild(image);
+        card.appendChild(cardBody);
+
+        col.appendChild(card);
+
+        newsdetails.appendChild(col);
     })
 }
