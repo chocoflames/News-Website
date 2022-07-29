@@ -5,6 +5,7 @@ const scienceBtn = document.getElementById("science");
 const healthBtn = document.getElementById("health");
 const politicBtn = document.getElementById("politic");
 const bitcoinBtn = document.getElementById("bitcoin");
+const educationBtn = document.getElementById("education");
 const entertainmentBtn = document.getElementById("entertainment");
 const technologyBtn = document.getElementById("technology");
 const searchBtn = document.getElementById("searchBtn");
@@ -32,6 +33,8 @@ const POLITIC_NEWS =
  " https://newsapi.org/v2/everything?q=politic&apikey=";
 const BITCOIN_NEWS =
  " https://newsapi.org/v2/everything?q=bitcoin&apikey=";
+const EDUCATION_NEWS =
+ " https://newsapi.org/v2/everything?q=education&apikey=";
 const ENTERTAINMENT_NEWS =
   " https://newsapi.org/v2/top-headlines?country=ng&category=entertainment&apiKey=";
 const TECHNOLOGY_NEWS =
@@ -71,6 +74,16 @@ healthBtn.addEventListener("click", function () {
 politicBtn.addEventListener("click", function () {
   newsType.innerHTML = "<h4>Politic</h4>";
   fetchPoliticNews();
+});
+
+bitcoinBtn.addEventListener("click", function () {
+  newsType.innerHTML = "<h4>Bitcoin</h4>";
+  fetchBitcoinNews();
+});
+
+educationBtn.addEventListener("click", function () {
+  newsType.innerHTML = "<h4>Education</h4>";
+  fetchEducationNews();
 });
 
 entertainmentBtn.addEventListener("click", function () {
@@ -168,6 +181,32 @@ const fetchHealthNews = async () => {
 
 const fetchPoliticNews = async () => {
   const response = await fetch(POLITIC_NEWS + API_KEY);
+  newsDataArr = [];
+  if (response.status >= 200 && response.status < 300) {
+    const myJson = await response.json();
+    newsDataArr = myJson.articles;
+  } else {
+    // errors
+    console.log(response.status, response.statusText);
+  }
+  displayNews();
+};
+
+const fetchBitcoinNews = async () => {
+  const response = await fetch(BITCOIN_NEWS + API_KEY);
+  newsDataArr = [];
+  if (response.status >= 200 && response.status < 300) {
+    const myJson = await response.json();
+    newsDataArr = myJson.articles;
+  } else {
+    // errors
+    console.log(response.status, response.statusText);
+  }
+  displayNews();
+};
+
+const fetchEducationNews = async () => {
+  const response = await fetch(EDUCATION_NEWS + API_KEY);
   newsDataArr = [];
   if (response.status >= 200 && response.status < 300) {
     const myJson = await response.json();
